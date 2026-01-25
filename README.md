@@ -1,16 +1,64 @@
-# React + Vite
+📝 ProTask - Modern Task Management Dashboard
+A robust, full-stack task management application built to demonstrate advanced React patterns, secure authentication, and real-time database interactions. This project goes beyond a simple "To-Do List" by implementing professional-grade features like optimistic UI updates, protected routing, and a responsive dashboard layout.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Key Features
+🔐 Security & Architecture
+Supabase Authentication: Secure user login and signup flows managed via Supabase Auth.
 
-Currently, two official plugins are available:
+Protected Routes: Implemented a custom ProtectedRoute wrapper to prevent unauthorized access to the dashboard.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Row Level Security (RLS): Database policies ensure users can only view and edit their own tasks.
 
-## React Compiler
+⚡ Advanced functionality
+Full CRUD Operations: Create, Read, Update, and Delete tasks with a seamless UI.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Optimistic Updates: The UI updates instantly when deleting or modifying tasks, providing a snappy user experience before the database confirms the change.
 
-## Expanding the ESLint configuration
+Undo Capability: "deleted" tasks can be restored within seconds via an interactive Toast notification.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Smart Filtering: Client-side filtering to instantly toggle between "All," "Active," and "Completed" tasks without re-fetching.
+
+🎨 UI/UX Design
+Professional Dashboard Layout: Features a fixed sidebar/header with an independent scrollable task area (using Tailwind CSS flex-col and overflow-hidden patterns).
+
+Dark Mode Support: Fully integrated dark/light theme toggle.
+
+Modern Components: Built with Shadcn/UI and Tailwind CSS for a polished, accessible, and responsive interface.
+
+Interactive Feedback: Replaced standard browser alerts with non-blocking Toasts for success and error messages.
+
+🛠️ Tech Stack
+Frontend: React (Vite), React Router v6
+
+Styling: Tailwind CSS, Shadcn/UI, Lucide Icons
+
+Backend & Database: Supabase (PostgreSQL)
+
+State Management: React Hooks (useState, useEffect, useContext)
+
+Date Handling: date-fns
+
+📸 Snapshots
+Task Management: Efficiently manage tasks with a clean card-based layout.
+![snapshot](image.png)
+
+Edit Modal: Updates are handled via a pre-filled dialog modal to keep the UI clean.
+
+🚦 How to Run Locally
+Clone the repository
+
+Bash
+git clone https://github.com/yourusername/task-manager.git
+Install dependencies
+
+Bash
+npm install
+Set up Environment Variables Create a .env file and add your Supabase credentials:
+
+Code snippet
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_key
+Run the App
+
+Bash
+npm run dev
