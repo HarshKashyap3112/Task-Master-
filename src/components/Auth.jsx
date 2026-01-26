@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { useToast } from '@/hooks/use-toast'
+import { ForgotPassword } from './ForgotPassword'
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
@@ -63,7 +64,8 @@ export default function Auth() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
+          <form >
+            <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input 
               id="email" 
@@ -71,16 +73,20 @@ export default function Auth() {
               placeholder="m@example.com" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
+            
             <Input 
               id="password" 
               type="password" 
               value={password}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
+            <ForgotPassword/>
           </div>
           <Button className="w-full" onClick={handleLogin} disabled={loading} variant="secondary">
             {loading ? 'Loading...' : 'Sign In'}
@@ -91,13 +97,14 @@ export default function Auth() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-gray-500">Or continue with</span>
+              <span className="bg-white px-2 text-gray-500 rounded-md">Or continue with</span>
             </div>
           </div>
 
           <Button variant="outline" className="w-full" onClick={handleSignUp} disabled={loading}>
             Create an account
           </Button>
+          </form>
         </CardContent>
         <CardFooter>
             <p className="text-xs text-center text-gray-500 w-full">

@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom' // 👈 Import Routes
+import { Routes, Route, Navigate } from 'react-router-dom' //  Import Routes
 import { supabase } from './supabaseClient'
 import Auth from './components/Auth'
 import { Navbar } from './components/Navbar.jsx'
 import { Dashboard } from './components/Dashboard.jsx'
-import { ProtectedRoute } from './components/ProtectedRoute' // 👈 Import the guard
+import { ProtectedRoute } from './components/ProtectedRoute' //  Import the guard
 import { Toaster } from "@/components/ui/toaster"
+import { UpdatePassword } from './components/UpdatePassword'
 function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false)
   // 1. Keep Session Logic Here (So Navbar can use it!)
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -19,9 +20,17 @@ function App() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       setLoading(false)
+       if (_event === 'PASSWORD_RECOVERY') {
+        setIsRecoveryMode(true)
+      }
     })
+
+   
     return () => subscription.unsubscribe()
   }, [])
+  if (isRecoveryMode) {
+    return <UpdatePassword />
+  }
 
   // 2. Loading Spinner (Prevent flicker)
   if (loading) return <div className="h-screen flex items-center justify-center">Loading...</div>
