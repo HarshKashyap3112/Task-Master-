@@ -3,6 +3,7 @@ import { supabase } from '../supabaseClient'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useToast } from '@/hooks/use-toast'
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ export function ForgotPassword() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const {toast} = useToast()
 
   const handleReset = async (e) => {
     e.preventDefault()
@@ -31,9 +33,16 @@ export function ForgotPassword() {
     setLoading(false)
 
     if (error) {
-      alert(error.message)
+    toast({
+      variant: "destructive", // Red color
+      title: "Error",
+      description: error.message,
+    })
     } else {
-      alert("Check your email for the password reset link!")
+    toast({
+      title: "Success",
+      description: "we have sended reset password link to your email",
+    })
       setOpen(false)
       setEmail('')
     }

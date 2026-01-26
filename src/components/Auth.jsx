@@ -3,6 +3,8 @@ import { supabase } from '../supabaseClient'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import dayImage from '../assets/day.jpg'
+import darkImage from '../assets/night.jpg'
 import {
   Card,
   CardContent,
@@ -55,8 +57,27 @@ export default function Auth() {
   }
 
   return (
-    <div className="flex items-center justify-end max-h-full bg-[url(day.jpg)] bg-cover bg-center bg-no-repeat p-4  dark:bg-[url(night.jpg)] h-lvh">
-      <Card className="w-full max-w-md  ">
+    <div className=" relative flex items-center justify-end max-h-full   p-4 h-lvh">
+      {/* --- BACKGROUND LAYER START --- */}
+      
+      {/* Dark Mode Image (Always there, sits at the bottom) */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${darkImage})` }}
+      />
+
+      {/* Light Mode Image (Sits on top, fades out when dark mode is active) */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 dark:opacity-0"
+        style={{ backgroundImage: `url(${dayImage})` }}
+      />
+      
+      {/* Optional: Overlay to ensure text is readable on any image */}
+      {/* <div className="absolute inset-0 bg-white/30 dark:bg-black/40 backdrop-blur-[2px]" /> */}
+
+      {/* --- BACKGROUND LAYER END --- */}
+      <div className="relative z-10 w-full max-w-md">
+        <Card className="w-full max-w-md  ">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Task Master</CardTitle>
           <CardDescription className="text-center">
@@ -112,6 +133,7 @@ export default function Auth() {
             </p>
         </CardFooter>
       </Card>
+      </div>
     </div>
   )
 }

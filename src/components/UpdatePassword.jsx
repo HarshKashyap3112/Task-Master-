@@ -3,11 +3,12 @@ import { supabase } from '../supabaseClient'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { useToast } from '@/hooks/use-toast'
 
 export function UpdatePassword() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const {toast} = useToast()
   const handleUpdate = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -16,9 +17,17 @@ export function UpdatePassword() {
     const { error } = await supabase.auth.updateUser({ password: password })
 
     if (error) {
-      alert("Error updating password: " + error.message)
+    toast({
+      variant:"destructive",
+      title: "Error",
+      description: error.message,
+    })
     } else {
-      alert("Password updated successfully!")
+      
+    toast({
+      title: "Success",
+      description: "Password updated successfully!",
+    })
       // Clear the hash from the URL so they don't get stuck in "recovery" mode
       window.location.hash = ''
       window.location.reload() 
