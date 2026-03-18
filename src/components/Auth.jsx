@@ -45,11 +45,12 @@ export default function Auth() {
     e.preventDefault()
     setLoading(true)
     const { error } = await supabase.auth.signUp({ email, password })
+    // console.log(error)
     if (error){
       toast({
       variant: "destructive", // Red color
       title: "Uh oh! Something went wrong.",
-      description: "There was a problem deleting your task.",
+      description: "please fill all details",
     })
     }
    
